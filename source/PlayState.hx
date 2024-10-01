@@ -1,16 +1,7 @@
 package;
-import flixel.FlxG;
-import flixel.FlxSprite;
 import flixel.FlxState;
-import flixel.text.FlxText;
-import flixel.util.FlxColor;
 import flixelspine.FlxSpine;
-import flixelspine.texture.FlixelTextureLoader;
-import openfl.utils.Assets;
 import spine.*;
-import spine.attachments.AtlasAttachmentLoader;
-import spine.support.graphics.TextureAtlas;
-import spine.support.utils.JsonReader;
 class PlayState extends FlxState
 {
 	var spineboySkeletonData:SkeletonData;
@@ -24,7 +15,7 @@ class PlayState extends FlxState
 		spineSprite.skeleton.findIkConstraint("crosshair");
 		spineSprite.skeleton.x = 0;
 		spineSprite.skeleton.y = 0;
-		spineSprite.x = 300;
+		spineSprite.x = 600;
 		spineSprite.y = 600;
 		spineSprite.antialiasing = true;
 		add(spineSprite);
