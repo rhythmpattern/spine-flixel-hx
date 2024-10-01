@@ -13,7 +13,7 @@ class SpineObject extends FlxSpine {
             //stateData.setMixByName("jump", "walk", 0.4);
             //stateData.setMixByName("jump", "jump", 0.2);
            
-            state.setAnimationByName(0, "animation", true);
+            state.setAnimationByName(0, "run", true);
         }
 
         override public function update(elapsed:Float):Void

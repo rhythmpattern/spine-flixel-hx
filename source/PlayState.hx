@@ -20,7 +20,7 @@ class PlayState extends FlxState
 	{
 		super.create();
 		
-		spineSprite = new SpineObject(FlxSpine.readSkeletonData("coin-pro", "coin-pro", "assets", 1));
+		spineSprite = new SpineObject(FlxSpine.readSkeletonData("spineboy-pro", "spineboy-pro", "assets", 1));
 		spineSprite.skeleton.findIkConstraint("crosshair");
 		spineSprite.skeleton.x = 0;
 		spineSprite.skeleton.y = 0;
