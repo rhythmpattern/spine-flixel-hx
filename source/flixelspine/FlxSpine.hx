@@ -122,9 +122,6 @@ class FlxSpine extends FlxSprite
 
 		collider = new FlxSpineCollider(this, X, Y, Width, Height, OffsetX, OffsetY);
 
-		//setPosition(x, y);
-		//setSize(width, height);
-
 		var drawOrder:Array<Slot> = skeleton.drawOrder;
 		for (slot in drawOrder)
 		{
@@ -186,11 +183,8 @@ class FlxSpine extends FlxSprite
 		if (alpha == 0)
 			return;
 
-		//  if (renderMeshes)
-			renderWithTriangles();
-		//  else
-		//  	renderWithQuads();
-
+		renderWithTriangles();
+		
 		collider.draw();
 	}
 
@@ -304,137 +298,6 @@ class FlxSpine extends FlxSprite
 				}
 			}
 		}
-	}
-
-	function renderWithQuads():Void
-	{
-		var flipX:Int = skeleton.scaleX < 0 ? -1 : 1;
-		var flipY:Int = skeleton.scaleY < 0 ? -1 : 1;
-		var flip:Int = flipX * flipY;
-
-		var drawOrder:Array<Slot> = skeleton.drawOrder;
-		var i:Int = 0, n:Int = drawOrder.length;
-
-		while (i < n)
-		{
-			var slot:Slot = drawOrder[i];
-			if (slot.attachment == null)
-			{
-				i++;
-				continue;
-			}
-
-			var regionAttachment:RegionAttachment = null;
-			if ((slot.attachment is RegionAttachment))
-				regionAttachment = cast slot.attachment;
-
-			if (regionAttachment != null)
-			{
-				var wrapper:FlxSprite = getSprite(regionAttachment);
-				wrapper.blend = (slot.data.blendMode == 1) ? BlendMode.ADD : BlendMode.NORMAL;
-
-				wrapper.color = FlxColor.fromRGBFloat(skeleton.getColor().r * slot.getColor().r * regionAttachment.getColor().r * color.redFloat,
-					skeleton.getColor().g * slot.getColor().g * regionAttachment.getColor().g * color.greenFloat, skeleton.getColor().b * slot.getColor().b * regionAttachment.getColor().b * color.blueFloat);
-
-				wrapper.alpha = skeleton.getColor().a * slot.getColor().a * regionAttachment.getColor().a * this.alpha;
-
-				var bone:Bone = slot.bone;
-
-				var wrapperAngle:Float = wrapper.angle;
-				var wrapperScaleX:Float = wrapper.scale.x;
-				var wrapperScaleY:Float = wrapper.scale.y;
-
-				var wrapperOriginX:Float = wrapper.origin.x;
-				var wrapperOriginY:Float = wrapper.origin.y;
-
-				var worldRotation:Float = bone.getWorldRotationX();
-				var worldScaleX:Float = bone.getWorldScaleX();
-				var worldScaleY:Float = bone.getWorldScaleY();
-
-				wrapper.origin.set(0, 0);
-
-				_matrix.identity();
-				_matrix.rotate(wrapperAngle * Math.PI / 180);
-				_matrix.scale(wrapperScaleX, wrapperScaleY);
-				_matrix.translate(wrapperOriginX, wrapperOriginY);
-				_matrix.scale(worldScaleX * flipX, worldScaleY * flipY);
-				_matrix.rotate(worldRotation * Math.PI / 180);
-				if (flipX != 1)
-					_matrix.rotate(Math.PI);
-
-				wrapper.angle += worldRotation * flip;
-				if (flipX != 1)
-					wrapper.angle += 180;
-				wrapper.angle *= flip;
-
-				wrapper.scale.x *= (wrapperAngle == 0) ? worldScaleX : worldScaleY;
-				wrapper.scale.x *= flipX;
-				wrapper.scale.y *= (wrapperAngle == 0) ? worldScaleY : worldScaleX;
-				wrapper.scale.y *= flipY;
-
-				wrapper.x = bone.worldX + _matrix.tx;
-				wrapper.y = bone.worldY + _matrix.ty;
-
-				wrapper.antialiasing = antialiasing;
-				wrapper.visible = true;
-				wrapper.draw();
-
-				wrapper.angle = wrapperAngle;
-				wrapper.scale.set(wrapperScaleX, wrapperScaleY);
-				wrapper.origin.set(wrapperOriginX, wrapperOriginY);
-			}
-
-			i++;
-		} 
-	}
-
-	function getSprite(regionAttachment:RegionAttachment):FlxSprite
-	{
-		var wrapper = _regionWrappers[regionAttachment];
-		if (wrapper != null && (wrapper is FlxSprite))
-			return wrapper;
-
-		var region:AtlasRegion = cast(regionAttachment.getRegion(), AtlasRegion);
-		var bitmapData:BitmapData = cast(region.page.rendererObject, BitmapData);
-		var graph:FlxGraphic = FlxGraphic.fromBitmapData(bitmapData, true);
-		
-		var regionWidth:Float = region.rotate ? region.height : region.width;
-		var regionHeight:Float = region.rotate ? region.width : region.height;
-
-		var atlasFrames:FlxAtlasFrames = (graph.atlasFrames == null) ? new FlxAtlasFrames(graph) : graph.atlasFrames;
-
-		var name:String = region.name;
-		var offset:FlxPoint = FlxPoint.get(0, 0);
-		var frameRect:FlxRect = new FlxRect(region.x, region.y, regionWidth, regionHeight);
-
-		var sourceSize:FlxPoint = FlxPoint.get(frameRect.width, frameRect.height);
-		var imageFrame = FlxImageFrame.fromFrame(atlasFrames.addAtlasFrame(frameRect, sourceSize, offset, name));
-
-		var wrapper:FlxSprite = new FlxSprite();
-		wrapper.frames = imageFrame;
-		wrapper.antialiasing = antialiasing;
-
-		wrapper.angle = -regionAttachment.getRotation();
-		wrapper.scale.x = regionAttachment.getScaleX() * (regionAttachment.getWidth() / region.width);
-		wrapper.scale.y = regionAttachment.getScaleY() * (regionAttachment.getHeight() / region.height);
-
-		// Position using attachment translation, shifted as if scale and rotation were at image center.
-		var radians:Float = -regionAttachment.getRotation() * Math.PI / 180;
-		var cos:Float = Math.cos(radians);
-		var sin:Float = Math.sin(radians);
-		var shiftX:Float = -regionAttachment.getWidth() / 2 * regionAttachment.getScaleX();
-		var shiftY:Float = -regionAttachment.getHeight() / 2 * regionAttachment.getScaleY();
-
-		if (region.rotate)
-		{
-			wrapper.angle += 90;
-			shiftX += regionHeight * (regionAttachment.getWidth() / region.width);
-		}
-
-		wrapper.origin.x = regionAttachment.getX() + shiftX * cos - shiftY * sin;
-		wrapper.origin.y = -regionAttachment.getY() + shiftX * sin + shiftY * cos;
-		_regionWrappers[regionAttachment] = wrapper;
-		return wrapper;
 	}
 
 	override function set_x(NewX:Float):Float
