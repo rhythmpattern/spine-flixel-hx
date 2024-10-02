@@ -13,11 +13,14 @@ class PlayState extends FlxState
 		super.create();
 		
 		spineSprite = new SpineSprite(FlxSpine.readSkeletonData("spineboy-pro", "spineboy-pro", "assets", 1));
+		
+		//Getting ik constraints for controlling spines.
 		//spineSprite.skeleton.findIkConstraint("crosshair");
+
 		spineSprite.skeleton.x = 0;
 		spineSprite.skeleton.y = 0; 
 		spineSprite.x = 600;
-		spineSprite.y = 600;
+		spineSprite.y = 800; 
 		spineSprite.antialiasing = true;
 		
 		add(spineSprite);
