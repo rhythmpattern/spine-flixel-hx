@@ -7,12 +7,12 @@ class PlayState extends FlxState
 {
 	var spineboySkeletonData:SkeletonData;
 	var spinestate:AnimationState;
-	var spineSprite:SpineObject;
+	var spineSprite:SpineSprite;
 	override public function create()
 	{
 		super.create();
 		
-		spineSprite = new SpineObject(FlxSpine.readSkeletonData("spineboy-pro", "spineboy-pro", "assets", 1));
+		spineSprite = new SpineSprite(FlxSpine.readSkeletonData("spineboy-pro", "spineboy-pro", "assets", 1));
 		//spineSprite.skeleton.findIkConstraint("crosshair");
 		spineSprite.skeleton.x = 0;
 		spineSprite.skeleton.y = 0; 

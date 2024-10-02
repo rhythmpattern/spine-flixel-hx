@@ -3,7 +3,7 @@ import flixel.FlxSprite;
 import flixelspine.FlxSpine;
 import spine.SkeletonData;
 
-class SpineObject extends FlxSpine {
+class SpineSprite extends FlxSpine {
     public function new(skeletonData:SkeletonData, x:Float = 0, y:Float = 0)
         {
             
