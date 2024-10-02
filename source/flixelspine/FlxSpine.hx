@@ -192,7 +192,6 @@ class FlxSpine extends FlxSprite
 		//  	renderWithQuads();
 
 		collider.draw();
-		super.draw();
 	}
 
 	function renderWithTriangles():Void
