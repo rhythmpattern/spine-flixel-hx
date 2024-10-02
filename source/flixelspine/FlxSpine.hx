@@ -1,43 +1,27 @@
 package flixelspine;
 
-import flixel.FlxCamera;
-import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxStrip;
 import flixel.graphics.FlxGraphic;
-import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.graphics.frames.FlxImageFrame;
-import flixel.math.FlxAngle;
-import flixel.math.FlxMath;
-import flixel.math.FlxMatrix;
-import flixel.math.FlxPoint;
-import flixel.math.FlxRect;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.util.FlxColor;
 import flixel.util.FlxDestroyUtil;
 import flixelspine.texture.FlixelTextureLoader;
-import haxe.ds.ObjectMap;
 import openfl.Assets;
 import openfl.Vector;
 import openfl.display.BitmapData;
 import openfl.display.BlendMode;
-import openfl.display.Graphics;
-import openfl.display.Sprite;
 import spine.AnimationState;
 import spine.AnimationStateData;
-import spine.BlendMode.BlendMode_enum;
-import spine.Bone;
 import spine.Skeleton;
 import spine.SkeletonData;
 import spine.SkeletonJson;
 import spine.Slot;
 import spine.attachments.AtlasAttachmentLoader;
-import spine.attachments.Attachment;
 import spine.attachments.MeshAttachment;
 import spine.attachments.RegionAttachment;
 import spine.support.graphics.TextureAtlas;
-import spine.support.graphics.TextureRegion;
 import spine.support.utils.JsonReader;
 
 /**
