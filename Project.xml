@@ -51,7 +51,7 @@
 	<!--Remove the legacy health system-->
 	<haxedef name="FLX_NO_HEALTH" />
 	<!--Must define no spine inlines to avoid return final errors.-->
-	<haxedef name="spine_no_inline" value = "true" />
+	<!--haxedef name="spine_no_inline" value = "true" /-->
 	
 	<!--Enable the Flixel core recording system-->
 	<!--<haxedef name="FLX_RECORD" />-->

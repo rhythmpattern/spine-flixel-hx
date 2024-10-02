@@ -186,10 +186,10 @@ class FlxSpine extends FlxSprite
 		if (alpha == 0)
 			return;
 
-		if (renderMeshes)
+		//  if (renderMeshes)
 			renderWithTriangles();
-		else
-			renderWithQuads();
+		//  else
+		//  	renderWithQuads();
 
 		collider.draw();
 		super.draw();
@@ -386,7 +386,7 @@ class FlxSpine extends FlxSprite
 			}
 
 			i++;
-		}
+		} 
 	}
 
 	function getSprite(regionAttachment:RegionAttachment):FlxSprite
@@ -395,9 +395,10 @@ class FlxSpine extends FlxSprite
 		if (wrapper != null && (wrapper is FlxSprite))
 			return wrapper;
 
-		var region:AtlasRegion = cast regionAttachment.getRegion();
-		var graph:FlxGraphic = cast region.page.rendererObject;
-
+		var region:AtlasRegion = cast(regionAttachment.getRegion(), AtlasRegion);
+		var bitmapData:BitmapData = cast(region.page.rendererObject, BitmapData);
+		var graph:FlxGraphic = FlxGraphic.fromBitmapData(bitmapData, true);
+		
 		var regionWidth:Float = region.rotate ? region.height : region.width;
 		var regionHeight:Float = region.rotate ? region.width : region.height;
 
