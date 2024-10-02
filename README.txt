@@ -6,3 +6,6 @@ I created this project for others like me who,
    b. Built in collision detection.
    c. Lot's of haxeflixel samples and easy examples.
 
+3. Supports v4.0.xx spine files.
+   a. Additive blending works.
+   b. Clipping is not supported.
