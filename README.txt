@@ -6,6 +6,5 @@ I created this project for others like me who,
    b. Built in collision detection.
    c. Lot's of haxeflixel samples and easy examples.
 
-3. Supports v4.0.xx spine files.
-   a. Additive blending works.
-   b. Clipping is not supported.
+3. Spine-hx Supports v4.0.xx spine files.
+4. I tested with v4.1 chibi examples from Spine and works well.

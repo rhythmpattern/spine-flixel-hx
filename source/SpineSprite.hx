@@ -13,7 +13,7 @@ class SpineSprite extends FlxSpine {
             // stateData.setMixByName("walk", "jump", 0.2);
             // stateData.setMixByName("jump", "walk", 0.4);
             // stateData.setMixByName("jump", "jump", 0.2);
-            
+            skeleton.setSkinByName("erikari");
             //------Skins Example. mix-and-match-pro -----------//
             // var skin:Skin = skeleton.data.findSkin("skin-base");
             // skin.addSkin(skeleton.data.findSkin("accessories/backpack"));
@@ -30,7 +30,7 @@ class SpineSprite extends FlxSpine {
             // ---Set setup full skin -------//
            //skeleton.setSkinByName("full-skins/girl");
 
-            state.setAnimationByName(0, "run", true);
+            state.setAnimationByName(0, "emotes/wave", true);
         }
 
         override public function update(elapsed:Float):Void
